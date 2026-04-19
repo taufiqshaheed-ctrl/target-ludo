@@ -1,0 +1,18 @@
+# Allow all crawlers on public pages
+User-agent: *
+Allow: /
+Allow: /login
+Allow: /signup
+
+# Block private dashboard routes
+Disallow: /admin
+Disallow: /engineer
+Disallow: /project-manager
+Disallow: /purchase
+Disallow: /accounts
+Disallow: /auth-callback
+Disallow: /pending-approval
+Disallow: /verify-email
+
+# Sitemap location
+Sitemap: https://arihantgroupjaipur.cloud/sitemap.xml
