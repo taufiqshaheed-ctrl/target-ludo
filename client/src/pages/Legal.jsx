@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, ChevronRight, Shield, FileText, ScrollText } from 'lucide-react';
-import BottomNav from '../components/UI/BottomNav';
+import BottomNav from '../components/ui/BottomNav';
 
 const legalItems = [
   { label: 'Terms of Service', icon: FileText, path: '/terms-of-service' },

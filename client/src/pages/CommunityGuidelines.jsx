@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import BottomNav from '../components/UI/BottomNav';
+import BottomNav from '../components/ui/BottomNav';
 
 const CommunityGuidelines = () => {
   const navigate = useNavigate();
