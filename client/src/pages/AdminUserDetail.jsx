@@ -6,6 +6,8 @@ import { toast } from 'sonner';
 import api from '@/services/api';
 import ConfirmModal from '@/components/ConfirmModal';
 
+const BASE = import.meta.env.VITE_API_URL?.replace('/api', '') || '';
+
 const statusColor = {
     completed: 'bg-green-500/20 text-green-500',
     pending: 'bg-amber-500/20 text-amber-500',
@@ -303,19 +305,19 @@ const AdminUserDetail = () => {
                                     {kyc.frontImage && (
                                         <div>
                                             <p className="text-xs text-muted-foreground mb-2">Front</p>
-                                            <img src={kyc.frontImage} alt="Front" className="w-full rounded-xl object-cover border border-border" />
+                                            <img src={`${BASE}${kyc.frontImage}`} alt="Front" className="w-full rounded-xl object-cover border border-border" />
                                         </div>
                                     )}
                                     {kyc.backImage && (
                                         <div>
                                             <p className="text-xs text-muted-foreground mb-2">Back</p>
-                                            <img src={kyc.backImage} alt="Back" className="w-full rounded-xl object-cover border border-border" />
+                                            <img src={`${BASE}${kyc.backImage}`} alt="Back" className="w-full rounded-xl object-cover border border-border" />
                                         </div>
                                     )}
                                     {kyc.selfie && (
                                         <div>
                                             <p className="text-xs text-muted-foreground mb-2">Selfie</p>
-                                            <img src={kyc.selfie} alt="Selfie" className="w-full rounded-xl object-cover border border-border" />
+                                            <img src={`${BASE}${kyc.selfie}`} alt="Selfie" className="w-full rounded-xl object-cover border border-border" />
                                         </div>
                                     )}
                                 </div>

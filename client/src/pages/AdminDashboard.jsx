@@ -414,7 +414,7 @@ const AdminDashboard = () => {
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                         {carouselImages.map(img => (
                             <div key={img._id} className="relative group rounded-xl overflow-hidden aspect-video bg-secondary/20">
-                                <img src={img.url} alt="carousel" className="w-full h-full object-cover" />
+                                <img src={`${import.meta.env.VITE_API_URL?.replace('/api', '') || ''}${img.url}`} alt="carousel" className="w-full h-full object-cover" />
                                 <button
                                     onClick={() => deleteCarouselImage(img._id)}
                                     className="absolute top-1.5 right-1.5 p-1.5 rounded-lg bg-black/60 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-destructive"

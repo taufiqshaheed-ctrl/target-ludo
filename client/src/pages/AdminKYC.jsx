@@ -6,6 +6,8 @@ import { toast } from 'sonner';
 import api from '@/services/api';
 import ConfirmModal from '@/components/ConfirmModal';
 
+const BASE = import.meta.env.VITE_API_URL?.replace('/api', '') || '';
+
 const statusBadge = {
     approved: 'bg-green-500/20 text-green-500',
     pending: 'bg-amber-500/20 text-amber-500',
@@ -187,7 +189,7 @@ const AdminKYC = () => {
                                             .map(img => (
                                                 <button
                                                     key={img.label}
-                                                    onClick={() => setPreviewUrl(img.url)}
+                                                    onClick={() => setPreviewUrl(`${BASE}${img.url}`)}
                                                     className="flex items-center gap-1 px-2.5 py-1 rounded-lg border border-border text-xs text-muted-foreground hover:text-foreground hover:border-primary/50 transition-colors"
                                                 >
                                                     <Eye className="w-3 h-3" /> {img.label}
@@ -251,7 +253,7 @@ const AdminKYC = () => {
                                                 .map(img => (
                                                     <button
                                                         key={img.label}
-                                                        onClick={() => setPreviewUrl(img.url)}
+                                                        onClick={() => setPreviewUrl(`${BASE}${img.url}`)}
                                                         className="px-1.5 py-0.5 rounded border border-border text-xs text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors"
                                                     >
                                                         {img.label}

@@ -337,8 +337,7 @@ router.get('/carousel', async (_req, res) => {
 router.post('/carousel', adminMiddleware, upload.single('image'), async (req, res) => {
     try {
         if (!req.file) return res.status(400).json({ message: 'No image uploaded' });
-        const baseUrl = `${req.protocol}://${req.get('host')}`;
-        const url = `${baseUrl}/uploads/${req.file.filename}`;
+        const url = `/uploads/${req.file.filename}`;
         const count = await CarouselImage.countDocuments();
         const image = await CarouselImage.create({ filename: req.file.filename, url, order: count });
         res.json(image);

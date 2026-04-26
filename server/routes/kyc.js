@@ -57,10 +57,9 @@ router.post(
                 return res.status(400).json({ message: 'docType and docNumber are required' });
             }
 
-            const baseUrl = `${req.protocol}://${req.get('host')}`;
             const fileUrl = (field) =>
                 req.files?.[field]?.[0]
-                    ? `${baseUrl}/uploads/${req.files[field][0].filename}`
+                    ? `/uploads/${req.files[field][0].filename}`
                     : '';
 
             const existing = await KYC.findOne({ userId: req.user.id });

@@ -5,6 +5,8 @@ import { Megaphone, ChevronLeft, ChevronRight } from 'lucide-react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import api from '../services/api';
+
+const BASE = import.meta.env.VITE_API_URL?.replace('/api', '') || '';
 import KYCModal from '../components/KYCModal';
 
 const LudoHome = () => {
@@ -50,7 +52,7 @@ const LudoHome = () => {
             <div className="flex">
               {carouselImages.map(img => (
                 <div key={img._id} className="flex-none w-full h-36">
-                  <img src={img.url} alt="banner" className="w-full h-full object-cover" />
+                  <img src={`${BASE}${img.url}`} alt="banner" className="w-full h-full object-cover" />
                 </div>
               ))}
             </div>
