@@ -1,8 +1,8 @@
 module.exports = {
     apps: [
         {
-            name: 'arihant-server',
-            cwd: '/var/www/arihant/server',
+            name: 'target-ludo-server',
+            cwd: '/var/www/target-ludo/server',
             script: 'index.js',
             instances: 1,
             autorestart: true,

@@ -1,9 +1,9 @@
 server {
     listen 80;
-    server_name yourdomain.com www.yourdomain.com;
+    server_name targetludo.cloud www.targetludo.cloud;
 
     # Serve React frontend static files
-    root /var/www/arihant/client/dist;
+    root /var/www/target-ludo/client/dist;
     index index.html;
 
     # Handle React Router (SPA) – always serve index.html for unknown routes
