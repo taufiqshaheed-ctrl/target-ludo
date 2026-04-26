@@ -4,8 +4,42 @@ import {
   Swords, Trophy, Coins, Megaphone, Plus, Trash2, RefreshCw,
   Zap, Users, Copy, Check, Upload, X,
 } from 'lucide-react';
+import { toast } from 'sonner';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
+
+/* ── Fake battles shown to users to make the lobby look active ───────────── */
+const FAKE_NAMES = [
+  'Arjun Singh', 'Priya Sharma', 'Rahul Verma', 'Sneha Patel', 'Vikram Rao',
+  'Pooja Gupta', 'Amit Kumar', 'Neha Joshi', 'Rohan Mehta', 'Ananya Mishra',
+  'Karan Thakur', 'Ritika Saxena', 'Suresh Yadav', 'Divya Tiwari', 'Manish Nair',
+  'Swati Chauhan', 'Deepak Bhat', 'Kavya Reddy', 'Nikhil Sinha', 'Shreya Kapoor',
+];
+const FAKE_FEES = [50, 100, 150, 200, 250, 300, 500];
+
+const makeFakeBattle = (seed) => {
+  const nameIdx  = (seed * 7 + Math.floor(Date.now() / 8000)) % FAKE_NAMES.length;
+  const feeIdx   = (seed * 3 + Math.floor(Date.now() / 12000)) % FAKE_FEES.length;
+  const fee      = FAKE_FEES[feeIdx];
+  return {
+    _id:    `fake_${seed}`,
+    isFake: true,
+    creator: { fullName: FAKE_NAMES[nameIdx] },
+    entryFee: fee,
+    prize: Math.floor(fee * 2 * 0.9),
+  };
+};
+
+const useFakeBattles = (count = 5) => {
+  const [fakes, setFakes] = useState(() => Array.from({ length: count }, (_, i) => makeFakeBattle(i)));
+  useEffect(() => {
+    const id = setInterval(() => {
+      setFakes(Array.from({ length: count }, (_, i) => makeFakeBattle(i)));
+    }, 7000);
+    return () => clearInterval(id);
+  }, [count]);
+  return fakes;
+};
 
 /* Pulsing "LIVE" dot */
 const LiveBadge = () => (
@@ -426,7 +460,9 @@ const BattlePage = () => {
   const [error, setError]                   = useState('');
   const [loading, setLoading]               = useState(true);
 
-  const myId = user?._id || user?.id;
+  const myId    = user?._id || user?.id;
+  const isAdmin = user?.role === 'admin';
+  const fakeBattles = useFakeBattles(5);
 
   const fetchBattles = async () => {
     try {
@@ -715,14 +751,10 @@ const BattlePage = () => {
         <div className="flex justify-center py-12">
           <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
         </div>
-      ) : openBattles.length === 0 ? (
-        <div className="text-center py-12 text-muted-foreground text-sm glass-card rounded-2xl">
-          No open battles right now. Create one!
-        </div>
       ) : (
         <div className="space-y-3">
           <AnimatePresence>
-            {openBattles.map((battle, i) => (
+            {[...openBattles, ...(isAdmin ? [] : fakeBattles)].map((battle, i) => (
               <motion.div
                 key={battle._id}
                 initial={{ opacity: 0, y: 16 }}
@@ -753,7 +785,10 @@ const BattlePage = () => {
                   <motion.button
                     whileTap={{ scale: 0.95 }}
                     whileHover={{ scale: 1.03 }}
-                    onClick={() => handleJoin(battle._id)}
+                    onClick={() => battle.isFake
+                      ? toast.info('This battle was just taken! Create your own or wait for more.')
+                      : handleJoin(battle._id)
+                    }
                     disabled={joiningId === battle._id}
                     className="px-6 py-2.5 rounded-xl bg-green-500 hover:bg-green-400 text-white font-bold text-sm transition-colors disabled:opacity-60 flex items-center gap-2"
                   >
