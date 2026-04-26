@@ -54,7 +54,11 @@ const Refer = () => {
           <motion.button
             whileTap={{ scale: 0.97 }}
             whileHover={{ scale: 1.02 }}
-            className="w-full py-3 rounded-xl bg-primary text-primary-foreground font-bold flex items-center justify-center gap-2"
+            onClick={() => {
+              const message = `🎮 Join me on Target Ludo and win real cash!\n\n👉 Play here: https://targetludo.cloud`;
+              window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
+            }}
+            className="w-full py-3 rounded-xl bg-[#25D366] text-white font-bold flex items-center justify-center gap-2"
           >
             <Share2 className="w-5 h-5" /> Share with Friends
           </motion.button>

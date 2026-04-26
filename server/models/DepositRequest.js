@@ -20,6 +20,10 @@ const depositRequestSchema = new mongoose.Schema({
         type: String,
         default: '',
     },
+    utrNumber: {
+        type: String,
+        default: '',
+    },
     transactionId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Transaction',

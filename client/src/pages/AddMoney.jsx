@@ -25,6 +25,7 @@ const QRModal = ({ amount, onClose }) => {
 
   const [screenshot, setScreenshot] = useState(null);   // File object
   const [preview, setPreview]       = useState('');     // object URL for preview
+  const [utrNumber, setUtrNumber]   = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [copied, setCopied]         = useState(false);
   const [error, setError]           = useState('');
@@ -65,12 +66,14 @@ const QRModal = ({ amount, onClose }) => {
 
   const handleSubmit = async () => {
     if (!screenshot) { setError('Please attach your payment screenshot.'); return; }
+    if (!utrNumber.trim()) { setError('Please enter your UTR / Transaction ID.'); return; }
     setSubmitting(true);
     setError('');
     try {
       const form = new FormData();
       form.append('amount', String(amount));
       form.append('screenshot', screenshot);
+      form.append('utrNumber', utrNumber.trim());
       await api.post('/deposits', form, { headers: { 'Content-Type': 'multipart/form-data' } });
       setStep('done');
     } catch (err) {
@@ -225,11 +228,27 @@ const QRModal = ({ amount, onClose }) => {
               <input
                 ref={screenshotInputRef}
                 type="file"
-                accept="image/*"
-                capture="environment"
+                accept="image/jpeg,image/png,image/webp"
                 className="hidden"
                 onChange={handleScreenshotChange}
               />
+
+              {/* UTR Number */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                  UTR / Transaction ID <span className="text-destructive">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={utrNumber}
+                  onChange={e => setUtrNumber(e.target.value)}
+                  placeholder="Enter 12-digit UTR or Transaction ID"
+                  className="w-full rounded-xl bg-secondary/40 border border-border px-4 py-3 text-sm font-mono font-semibold placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                />
+                <p className="text-[11px] text-muted-foreground">
+                  Find the UTR/Ref number in your UPI payment confirmation.
+                </p>
+              </div>
 
               {error && <p className="text-destructive text-sm text-center">{error}</p>}
             </>

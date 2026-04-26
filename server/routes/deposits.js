@@ -67,6 +67,7 @@ router.post('/', authMiddleware, uploadScreenshot.single('screenshot'), async (r
     }
     try {
         const screenshotUrl = `/uploads/${req.file.filename}`;
+        const utrNumber = req.body.utrNumber?.trim() || '';
 
         // Create a pending transaction entry for history tracking
         const txn = await Transaction.create({
@@ -74,7 +75,7 @@ router.post('/', authMiddleware, uploadScreenshot.single('screenshot'), async (r
             type: 'deposit',
             amount,
             status: 'pending',
-            note: 'Awaiting admin verification',
+            note: utrNumber ? `UTR: ${utrNumber} — Awaiting admin verification` : 'Awaiting admin verification',
         });
 
         // Create deposit request linked to the transaction
@@ -82,6 +83,7 @@ router.post('/', authMiddleware, uploadScreenshot.single('screenshot'), async (r
             userId: req.user.id,
             amount,
             screenshotUrl,
+            utrNumber,
             transactionId: txn._id,
         });
 

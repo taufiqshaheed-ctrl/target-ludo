@@ -152,6 +152,14 @@ const AdminDeposits = () => {
                                     </div>
                                 </div>
 
+                                {/* UTR Number */}
+                                {dep.utrNumber && (
+                                    <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-primary/8 border border-primary/20">
+                                        <span className="text-[10px] text-muted-foreground uppercase font-semibold tracking-wide flex-shrink-0">UTR / Txn ID:</span>
+                                        <span className="font-mono font-bold text-primary text-sm tracking-wider">{dep.utrNumber}</span>
+                                    </div>
+                                )}
+
                                 {/* Screenshot */}
                                 {ssUrl ? (
                                     <button
