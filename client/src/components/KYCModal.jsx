@@ -46,9 +46,7 @@ const KYCModal = ({ open, onClose, onApproved }) => {
       if (backImage) formData.append('backImage', backImage);
       if (selfie) formData.append('selfie', selfie);
 
-      await api.post('/kyc/submit', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      await api.post('/kyc/submit', formData);
       setSubmitted(true);
       setKycStatus({ status: 'pending' });
     } catch (err) {

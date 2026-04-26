@@ -74,7 +74,7 @@ const QRModal = ({ amount, onClose }) => {
       form.append('amount', String(amount));
       form.append('screenshot', screenshot);
       form.append('utrNumber', utrNumber.trim());
-      await api.post('/deposits', form, { headers: { 'Content-Type': 'multipart/form-data' } });
+      await api.post('/deposits', form);
       setStep('done');
     } catch (err) {
       setError(err.response?.data?.message || 'Something went wrong. Please try again.');
