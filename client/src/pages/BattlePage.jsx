@@ -74,9 +74,7 @@ const ResultModal = ({ battle, onClose, onSubmitted }) => {
       const form = new FormData();
       form.append('result', result);
       form.append('screenshot', file);
-      const res = await api.post(`/battles/${battle._id}/result`, form, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      const res = await api.post(`/battles/${battle._id}/result`, form);
       onSubmitted(res.data.battle);
       onClose();
     } catch (err) {
@@ -145,7 +143,7 @@ const ResultModal = ({ battle, onClose, onSubmitted }) => {
               <span className="text-xs">Tap to upload screenshot</span>
             </div>
           )}
-          <input ref={inputRef} type="file" accept="image/*" className="hidden" onChange={handleFile} />
+          <input ref={inputRef} type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={handleFile} />
         </div>
 
         <motion.button

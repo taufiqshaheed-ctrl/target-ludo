@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -59,7 +59,7 @@ const ImageUploadField = ({ label, fieldName, preview, onChange }) => (
     <label className="block cursor-pointer">
       <input
         type="file"
-        accept="image/*"
+        accept="image/jpeg,image/png,image/webp"
         className="hidden"
         onChange={e => onChange(fieldName, e.target.files?.[0])}
       />
@@ -129,7 +129,7 @@ const KYCPage = () => {
       if (files.backImage)  form.append('backImage',  files.backImage);
       if (files.selfie)     form.append('selfie',     files.selfie);
 
-      await api.post('/kyc/submit', form, { headers: { 'Content-Type': 'multipart/form-data' } });
+      await api.post('/kyc/submit', form);
       setKycData({ status: 'pending', docType, docNumber });
       setSuccess(true);
       await refreshUser();
