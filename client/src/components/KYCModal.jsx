@@ -36,6 +36,7 @@ const KYCModal = ({ open, onClose, onApproved }) => {
 
   const handleSubmit = async () => {
     if (!docNumber.trim()) return setError('Please enter your document number');
+    if (!frontImage) return setError('Please upload the front image of your document');
     setError('');
     setSubmitting(true);
     try {
