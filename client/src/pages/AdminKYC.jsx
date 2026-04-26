@@ -246,7 +246,7 @@ const AdminKYC = () => {
                                 </div>
                                 <div className="flex flex-col gap-1">
                                     <span className="text-xs text-muted-foreground">{new Date(k.createdAt).toLocaleDateString('en-IN')}</span>
-                                    {(k.frontImage || k.backImage || k.selfie) && (
+                                    {(k.frontImage || k.backImage || k.selfie) ? (
                                         <div className="flex gap-1">
                                             {[{ url: k.frontImage, label: 'F' }, { url: k.backImage, label: 'B' }, { url: k.selfie, label: 'S' }]
                                                 .filter(img => img.url)
@@ -260,6 +260,8 @@ const AdminKYC = () => {
                                                     </button>
                                                 ))}
                                         </div>
+                                    ) : (
+                                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-600 font-medium w-fit">No docs</span>
                                     )}
                                 </div>
                                 <div className="flex gap-2 flex-wrap">

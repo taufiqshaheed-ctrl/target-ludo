@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, User, Wallet, FileText, ShieldCheck, Phone, Mail, Calendar, IndianRupee, Pencil, X, Trash2 } from 'lucide-react';
+import { ArrowLeft, Wallet, FileText, ShieldCheck, Phone, Mail, Calendar, IndianRupee, Pencil, X, Trash2, AlertTriangle } from 'lucide-react';
 import { toast } from 'sonner';
 import api from '@/services/api';
 import ConfirmModal from '@/components/ConfirmModal';
@@ -300,7 +300,7 @@ const AdminUserDetail = () => {
                                 )}
                             </div>
 
-                            {(kyc.frontImage || kyc.backImage || kyc.selfie) && (
+                            {(kyc.frontImage || kyc.backImage || kyc.selfie) ? (
                                 <div className="grid md:grid-cols-3 gap-4 mt-2">
                                     {kyc.frontImage && (
                                         <div>
@@ -320,6 +320,11 @@ const AdminUserDetail = () => {
                                             <img src={`${BASE}${kyc.selfie}`} alt="Selfie" className="w-full rounded-xl object-cover border border-border" />
                                         </div>
                                     )}
+                                </div>
+                            ) : (
+                                <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-600 text-sm">
+                                    <AlertTriangle className="w-4 h-4 flex-shrink-0" />
+                                    No document images uploaded. Ask the user to resubmit KYC with proper images.
                                 </div>
                             )}
 
