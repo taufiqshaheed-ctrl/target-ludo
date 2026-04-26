@@ -73,7 +73,7 @@ const KYCModal = ({ open, onClose, onApproved }) => {
       <input
         ref={inputRef}
         type="file"
-        accept="image/*"
+        accept="image/jpeg,image/png,image/webp"
         className="hidden"
         onChange={e => onChange(e.target.files?.[0] || null)}
       />
@@ -189,7 +189,7 @@ const KYCModal = ({ open, onClose, onApproved }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: '100%' }}
             transition={{ type: 'spring', damping: 28, stiffness: 300 }}
-            className="fixed inset-x-0 bottom-0 z-50 sm:inset-0 sm:flex sm:items-center sm:justify-center sm:p-4"
+            className="fixed inset-x-0 bottom-14 z-50 sm:inset-0 sm:bottom-0 sm:flex sm:items-center sm:justify-center sm:p-4"
             onClick={e => e.stopPropagation()}
           >
             <div className="w-full sm:max-w-md bg-card rounded-t-3xl sm:rounded-3xl shadow-2xl border border-border flex flex-col max-h-[92dvh] sm:max-h-[88vh]">

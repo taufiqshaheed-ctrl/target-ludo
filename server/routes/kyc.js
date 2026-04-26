@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({
     storage,
-    limits: { fileSize: 5 * 1024 * 1024 },
+    limits: { fileSize: 15 * 1024 * 1024 },
     fileFilter: (_req, file, cb) => {
         if (file.mimetype.startsWith('image/')) cb(null, true);
         else cb(new Error('Only image files are allowed'));
@@ -41,15 +41,24 @@ router.get('/status', authMiddleware, async (req, res) => {
     }
 });
 
-// POST /api/kyc/submit — submit or resubmit KYC
-router.post(
-    '/submit',
-    authMiddleware,
+const kycUploadMiddleware = (req, res, next) => {
     upload.fields([
         { name: 'frontImage', maxCount: 1 },
         { name: 'backImage', maxCount: 1 },
         { name: 'selfie', maxCount: 1 },
-    ]),
+    ])(req, res, (err) => {
+        if (err) {
+            return res.status(400).json({ message: err.message || 'File upload error' });
+        }
+        next();
+    });
+};
+
+// POST /api/kyc/submit — submit or resubmit KYC
+router.post(
+    '/submit',
+    authMiddleware,
+    kycUploadMiddleware,
     async (req, res) => {
         try {
             const { docType, docNumber } = req.body;
