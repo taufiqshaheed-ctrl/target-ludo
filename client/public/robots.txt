@@ -3,16 +3,17 @@ User-agent: *
 Allow: /
 Allow: /login
 Allow: /signup
+Allow: /battles
 
-# Block private dashboard routes
+# Block private routes
 Disallow: /admin
-Disallow: /engineer
-Disallow: /project-manager
-Disallow: /purchase
-Disallow: /accounts
-Disallow: /auth-callback
-Disallow: /pending-approval
-Disallow: /verify-email
+Disallow: /account
+Disallow: /wallet
+Disallow: /kyc
+Disallow: /history
+Disallow: /profile
+Disallow: /refer
+Disallow: /add-money
 
 # Sitemap location
-Sitemap: https://arihantgroupjaipur.cloud/sitemap.xml
+Sitemap: https://targetludo.cloud/sitemap.xml
