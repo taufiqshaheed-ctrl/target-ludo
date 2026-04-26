@@ -6,7 +6,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import api from '../services/api';
 
-const BASE = import.meta.env.VITE_API_URL?.replace('/api', '') || '';
+const BASE = import.meta.env.VITE_API_URL || '';
 import KYCModal from '../components/KYCModal';
 
 const LudoHome = () => {

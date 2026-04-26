@@ -6,7 +6,7 @@ import { toast } from 'sonner';
 import api from '@/services/api';
 import ConfirmModal from '@/components/ConfirmModal';
 
-const BASE = import.meta.env.VITE_API_URL?.replace('/api', '') || '';
+const BASE = import.meta.env.VITE_API_URL || '';
 
 const statusBadge = {
     approved: 'bg-green-500/20 text-green-500',

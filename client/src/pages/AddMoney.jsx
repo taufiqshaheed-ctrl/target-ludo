@@ -10,7 +10,7 @@ import api from '../services/api';
 const PRESETS = [100, 250, 500, 2000];
 const MIN = 10;
 const MAX = 200000;
-const API_ORIGIN = import.meta.env.VITE_API_URL?.replace('/api', '') || '';
+const API_ORIGIN = import.meta.env.VITE_API_URL || '';
 
 /* ── QR Payment Modal ──────────────────────────────────────────────────── */
 const QRModal = ({ amount, onClose }) => {
